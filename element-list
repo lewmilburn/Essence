@@ -6,6 +6,7 @@ net.lewmc.essence.commands.inventories
 net.lewmc.essence.commands.stats
 net.lewmc.essence.commands.teleportation
 net.lewmc.essence.commands.teleportation.home
+net.lewmc.essence.commands.teleportation.tp
 net.lewmc.essence.commands.teleportation.warp
 net.lewmc.essence.events
 net.lewmc.essence.tabcompleter
