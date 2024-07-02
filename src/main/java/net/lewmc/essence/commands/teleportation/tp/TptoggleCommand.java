@@ -48,6 +48,10 @@ public class TptoggleCommand implements CommandExecutor {
         Player player = (Player) commandSender;
 
         if (command.getName().equalsIgnoreCase("tptoggle")) {
+            if (cmd.isDisabled("tptoggle")) {
+                return cmd.disabled();
+            }
+
             MessageUtil message = new MessageUtil(commandSender, this.plugin);
             PermissionHandler permission = new PermissionHandler(commandSender, message);
 
@@ -57,10 +61,10 @@ public class TptoggleCommand implements CommandExecutor {
 
                 if (file.getBoolean("user.accepting-teleport-requests")) {
                     file.set("user.accepting-teleport-requests", false);
-                    message.PrivateMessage("teleport", "toggled", "disabled");
+                    message.send("teleport", "toggled", new String[] { "disabled" });
                 } else {
                     file.set("user.accepting-teleport-requests", true);
-                    message.PrivateMessage("teleport", "toggled", "enabled");
+                    message.send("teleport", "toggled", new String[] { "enabled" });
                 }
 
                 file.save();

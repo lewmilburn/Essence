@@ -1,5 +1,6 @@
 package net.lewmc.essence.commands.chat;
 
+import net.lewmc.essence.utils.CommandUtil;
 import net.lewmc.essence.utils.MessageUtil;
 import net.lewmc.essence.Essence;
 import net.lewmc.essence.utils.PermissionHandler;
@@ -35,6 +36,11 @@ public class BroadcastCommand implements CommandExecutor {
         String[] args
     ) {
         if (command.getName().equalsIgnoreCase("broadcast")) {
+            CommandUtil cmd = new CommandUtil(this.plugin);
+            if (cmd.isDisabled("broadcast")) {
+                return cmd.disabled();
+            }
+
             MessageUtil message = new MessageUtil(commandSender, plugin);
             PermissionHandler permission = new PermissionHandler(commandSender, message);
             if (!permission.has("essence.chat.broadcast")) {
@@ -47,9 +53,9 @@ public class BroadcastCommand implements CommandExecutor {
                 for (String arg : args) {
                     broadcastMessage.append(arg).append(" ");
                 }
-                message.BroadcastMessage(broadcastMessage.toString());
+                message.broadcast(broadcastMessage.toString());
             } else {
-                message.PrivateMessage("broadcast","usage");
+                message.send("broadcast","usage");
             }
 
             return true;

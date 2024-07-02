@@ -46,6 +46,11 @@ public class SetwarpCommand implements CommandExecutor {
         PermissionHandler permission = new PermissionHandler(commandSender, message);
 
         if (command.getName().equalsIgnoreCase("setwarp")) {
+            CommandUtil cmd = new CommandUtil(this.plugin);
+            if (cmd.isDisabled("setwarp")) {
+                return cmd.disabled();
+            }
+
             if (permission.has("essence.warp.create")) {
                 if (args.length == 0) {
                     message.send("warp", "setusage");
@@ -88,7 +93,7 @@ public class SetwarpCommand implements CommandExecutor {
                 // Save the configuration to the file
                 warpsData.save();
 
-                message.PrivateMessage("warp", "created", args[0]);
+                message.send("warp", "created", new String[] { args[0] });
             } else {
                 permission.not();
             }
